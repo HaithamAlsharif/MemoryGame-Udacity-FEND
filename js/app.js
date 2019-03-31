@@ -17,6 +17,9 @@ let stars = document.getElementsByClassName('fa-star')
 let starIndex = 0;
 let wrongMoves = 0;
 let timerFlag = false;
+let winFlag = false;
+
+let resetFlag = false;
 
 for (var className of iList) {
     if (className.classList[1] !== 'fa-star' && className.classList[1] !== 'fa-repeat')
@@ -27,6 +30,7 @@ arrOfShuffledClassNames = shuffle(arrOfClassNames);
 function createCard(shuffledClass) {
     let linode = document.createElement('li');
     linode.classList.add('card');
+    // linode.classList.add('show')
     let inode = document.createElement('i');
     linode.appendChild(inode);
     inode.classList.add('fa');
@@ -51,8 +55,11 @@ function CardFlipMechanism() {
         allCards[i].addEventListener('click', function () {
             this.classList.add('show');
             this.classList.add('open');
-            incrementCounter();
-            if (!timerFlag) {
+            this.classList.add('preventClick')
+
+                incrementCounter();
+                    resetFlag = false;
+            if (!timerFlag && !resetFlag) {
                 timeFunc();
                 timerFlag = true;
             }
@@ -73,7 +80,15 @@ function CardFlipMechanism() {
                 winningCards += 2;
                 opened = [];
                 if (winningCards == 16) {
+                    winFlag = true;
                     win(moves);
+                    setTimeout(function(){
+                        if(confirm("Do you want to play again ?")){
+                            window.location.reload();
+                        }else{
+                            return;
+                        };
+                    },1000);
                 }
             }
 
@@ -112,22 +127,32 @@ function win(moves) {
     winningPage.style.display = "block";
 }
 
-
-// if (timerFlag) {
-//     console.log(timerFlag)
-//     timeFunc();
-// }
-
 function timeFunc() {
-    setInterval(function () {
-        timerCount += 1;
-        timerSpan[0].innerHTML = timerCount;
-    }, 1000);
+
+        setInterval(function () {
+            if(!winFlag && !resetFlag){
+                timerCount += 1;
+                timerSpan[0].innerHTML = timerCount;
+            }
+        }, 1000);
+        if(!resetFlag){
+            timerSpan[0].innerHTML = timerCount; 
+        }
 }
 
 
 // reset button functionality
 function reset() {
+    resetFlag = true;
+    timerSpan[0].innerHTML = 0;
+    timerCount = 0;
+
+    for(card of allCards){
+        if(card.classList.contains('preventClick')){
+            card.classList.remove('preventClick');
+        }
+    }
+
     for (card of allCards) {
         card.classList.remove('show');
         card.classList.remove('open');
@@ -151,7 +176,7 @@ function incrementCounter() {
 
 
 function starMechanism(wrongMoves) {
-    if (wrongMoves % 10 == 0 && starIndex < stars.length) {
+    if (wrongMoves % 10 == 0 && starIndex < stars.length-1) {
         stars[starIndex].classList.add('fa-star-o');
         starIndex++;
     }

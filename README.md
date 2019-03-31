@@ -1,20 +1,14 @@
 # Memory Game Project
+The game works as follows:
+- There are 16 cards, the player should find each two matched cards by flipping them and match the icons.
+- The player has a timer, a move counter and stars rating to see his/her progress.
+- The player when he/she finds all the matched pairs of 8.
+- The player can restart the game fully by clicking the restart button.
 
-## Table of Contents
-
-* [Instructions](#instructions)
-* [Contributing](#contributing)
-
-## Instructions
-
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
-
-To get started, open `js/app.js` and start building out the app's functionality
-
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
-
-## Contributing
-
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
-
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+Dependencies:
+- The game is working on pure JavaScript.
+- The game uses Awesoeme fonts library for the icons provided by this stylesheet: 
+    <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+- The game also uses a specific font gotten through this:
+    <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
+    
